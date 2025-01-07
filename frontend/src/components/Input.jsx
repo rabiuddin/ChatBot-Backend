@@ -13,7 +13,6 @@ export default function Input({ onSend }) {
             onSend(message, true); 
             setIsLoading(true);
             setMessage('');
-            // await new Promise((resolve) => setTimeout(resolve, 5000)); 
             try {
                 const response = await axios.post('http://127.0.0.1:8000/', { prompt: message });
                 onSend(response.data.data, false); 
