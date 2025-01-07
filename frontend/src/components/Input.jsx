@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import axios from '../config/axios.config.js';
 
 export default function Input({ onSend }) {
     const [message, setMessage] = useState('');
@@ -14,7 +14,7 @@ export default function Input({ onSend }) {
             setIsLoading(true);
             setMessage('');
             try {
-                const response = await axios.post('http://127.0.0.1:8000/', { prompt: message });
+                const response = await axios.post('/api/chat-completion/', { prompt: message });
                 onSend(response.data.data, false); 
             } catch (error) {
                 console.error('Error sending message:', error);

@@ -1,22 +1,23 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import openai
 import os
+import time
+from api.chatCompletion.main import router
 
 load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_SECRET_KEY")
+# openai.api_key = os.getenv("OPENAI_SECRET_KEY")
 
 app = FastAPI()
 
-@app.post("/")
-def indexFunction(prompt : str):
-    response = openai.chat.completions.create(
-    model="gpt-4", 
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt}
-    ]
-    )
-    assistant_message = response['choices'][0]['message']['content']
-    return assistant_message
+# Allow CORS for frontend requests (adjust this to your frontend URL)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[os.getenv("CORS_URLS")],  
+    allow_methods=["*"],  
+    allow_headers=["*"],  # Allows all headers
+)
+
+app.include_router(router, prefix="/api/chat-completion", tags=["chat-completion"])
