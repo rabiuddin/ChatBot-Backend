@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-import openai
 import os
-import time
 from api.chatCompletion.main import router
 
 load_dotenv()

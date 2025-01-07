@@ -48,7 +48,7 @@ export default function Input({ onSend }) {
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
-                className="flex-1 p-4 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white resize-none overflow-y-auto"
+                className="flex-1 p-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white resize-none overflow-y-auto"
                 rows={1}
                 style={{ minHeight: '60px', maxHeight: '160px' }}
                 disabled={false} // Enable typing
@@ -57,7 +57,7 @@ export default function Input({ onSend }) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="bg-blue-500 text-white p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 h-[40px] w-[40px] flex items-center justify-center ml-2"
+                className="bg-blue-500 text-white p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 h-[40px] w-[40px] flex items-center justify-center ml-2 mb-2"
                 disabled={isLoading} // Only disable the submit button
             >
                 {isLoading ? (
