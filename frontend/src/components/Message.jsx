@@ -12,7 +12,7 @@ export default function Message({ text, isUser }) {
             className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
         >
             <div
-                className={`max-w-xl px-4 py-2 rounded-lg break-words whitespace-pre-wrap ${
+                className={`max-w-2xl px-4 py-2 rounded-lg break-words whitespace-pre-wrap ${
                     isUser
                         ? 'bg-blue-500 text-white'
                         : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-white'
