@@ -18,13 +18,15 @@ def getResponse(request: PromptRequest):
     prompt = request.prompt
     try:
         response = openai.chat.completions.create(
-        model="gpt-4", 
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
-        ]
+            model="gpt-4", 
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=100,
+            temperature=0.7
         )
-        assistant_message = response['choices'][0]['message']['content']
+        assistant_message = response.choices[0].message.content
         return {"data": assistant_message}
     except Exception as e:
-        return {"data": f"Sorry the OpenAI services are currectly down, try again later. You asked me: {prompt}"}
+        return {"data": f"Sorry the OpenAI services are currently down, try again later. You asked me: {prompt}\nException: {e}"}

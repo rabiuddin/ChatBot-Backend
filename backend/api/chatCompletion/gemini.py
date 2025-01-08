@@ -20,14 +20,17 @@ def getResponse(request: PromptRequest):
 
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
-        generation_config = genai.types.GenerationConfig(
-            max_output_tokens=50,
-        )
         
-        response = model.generate_content(prompt)  
+        response = model.generate_content(
+            prompt,
+            generation_config = genai.GenerationConfig(
+                max_output_tokens=500,
+                temperature=0.7,
+            )
+        )  
         
         result = response.text
 
         return {"data": result}
     except Exception as e:
-        return {"data": f"Sorry the Gemini AI services are currently down, try again later. You asked me: {prompt}"}
+        return {"data": f"Sorry the Gemini AI services are currently down, try again later. You asked me: {prompt}\nExeption: {e}"}
