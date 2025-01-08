@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from '../config/axios.config.js';
 
-export default function Input({ onSend }) {
+export default function Input({ onSend, selectedAPI }) {
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const textareaRef = useRef(null);
@@ -14,7 +14,8 @@ export default function Input({ onSend }) {
             setIsLoading(true);
             setMessage('');
             try {
-                const response = await axios.post('/api/chat-completion/', { prompt: message });
+                const endpoint = selectedAPI === 'openai' ? '/api/chat-completion/openai' : '/api/chat-completion/gemini';
+                const response = await axios.post(endpoint, { prompt: message });
                 onSend(response.data.data, false); 
             } catch (error) {
                 console.error('Error sending message:', error);
