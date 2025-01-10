@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from src.app.api.chatCompletion.main import router
 from src.app.api.assistant import main
+from src.app.api.speechAssistant.main import speech_router
 
 load_dotenv()
 
@@ -21,3 +22,4 @@ app.add_middleware(
 
 app.include_router(router, prefix="/api/chat-completion", tags=["chat-completion"])
 app.include_router(main.router, prefix="/api/mergestack-assistant", tags=["assistant"])
+app.include_router(speech_router, prefix="/api/speech-assistant", tags=["speech-assistant"])

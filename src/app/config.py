@@ -9,6 +9,7 @@ class Config:
     max_tokens: int
     model_temperature: float
     available_models: str
+    assemblyai_api_key: str
 
     def __init__(self):
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -16,6 +17,7 @@ class Config:
         self.max_tokens = os.getenv("MAX_OUTPUT_TOKENS")
         self.model_temperature = os.getenv("MODEL_TEMPERATURE")
         self.available_models = os.getenv("AVAILABLE_MODELS")
+        self.assemblyai_api_key = os.getenv("ASSEMBLY_AI_API_KEY")
 
     def get_gemini_api_key(self):
         return self.gemini_api_key
@@ -31,3 +33,6 @@ class Config:
     
     def get_available_models(self):
         return self.available_models.split(",")
+    
+    def get_assemblyai_api_key(self):
+        return self.assemblyai_api_key
