@@ -29,7 +29,17 @@ class MergeStackService:
                 name="Company Policy Vector Store"
             )
 
-            directory_path = "src/app/files/"
+            # Get the current file's directory (mergestack_helper.py)
+            current_file_directory = os.path.dirname(__file__)
+
+            # Traverse up to the project root
+            project_root = os.path.abspath(os.path.join(current_file_directory, "../../.."))
+
+            # Construct the path to the `files` directory
+            directory_path = os.path.join(project_root, "app", "files")
+
+            # Print or use the `files_directory`
+            print(directory_path)
 
             file_name = "mergeStack policy.pdf"
             file_path = os.path.join(directory_path, file_name)
