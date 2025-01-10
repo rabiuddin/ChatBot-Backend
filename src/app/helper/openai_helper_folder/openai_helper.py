@@ -7,8 +7,6 @@ config = Config()
 openai.api_key = config.get_openai_api_key()
 
 def openai_chat_completion(request: PromptRequest):
-    print("Model: ",request.model)
-    print("Prompt: ", request.prompt)
     try:
         response = openai.chat.completions.create(
             model=request.model, 

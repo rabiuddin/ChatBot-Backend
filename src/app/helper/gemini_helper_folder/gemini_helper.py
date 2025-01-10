@@ -20,7 +20,6 @@ def gemini_chat_completion(request: PromptRequest):
         )  
         
         result = response.text
-        print(result)
 
         return result
     except Exception as e:
