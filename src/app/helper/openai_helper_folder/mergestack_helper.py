@@ -38,9 +38,6 @@ class MergeStackService:
             # Construct the path to the `files` directory
             directory_path = os.path.join(project_root, "app", "files")
 
-            # Print or use the `files_directory`
-            print(directory_path)
-
             file_name = "mergeStack policy.pdf"
             file_path = os.path.join(directory_path, file_name)
             # Putting the file 

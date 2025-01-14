@@ -20,8 +20,8 @@ class Config:
         self.model_temperature = os.getenv("MODEL_TEMPERATURE")
         self.available_models = os.getenv("AVAILABLE_MODELS")
         self.assemblyai_api_key = os.getenv("ASSEMBLY_AI_API_KEY")
-        self.encryption_key = os.getenv("ENCRYPTION_KEY")
-        self.IV = os.getenv("IV")
+        self.encryption_key = bytes.fromhex(os.getenv("ENCRYPTION_KEY"))
+        self.IV = bytes.fromhex(os.getenv("IV"))
 
     def get_gemini_api_key(self):
         return self.gemini_api_key

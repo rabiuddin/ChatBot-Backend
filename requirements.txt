@@ -6,7 +6,6 @@ certifi==2024.12.14
 cffi==1.17.1
 charset-normalizer==3.4.1
 click==8.1.8
-cryptography==44.0.0
 distro==1.9.0
 fastapi==0.115.6
 google-ai-generativelanguage==0.6.10
@@ -31,6 +30,7 @@ protobuf==5.29.2
 pyasn1==0.6.1
 pyasn1_modules==0.4.1
 pycparser==2.22
+pycryptodome==3.21.0
 pydantic==2.10.4
 pydantic_core==2.27.2
 pyparsing==3.2.1

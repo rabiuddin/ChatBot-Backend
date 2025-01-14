@@ -1,38 +1,36 @@
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import padding
+from fastapi import FastAPI, HTTPException
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad, pad
+from src.app.config import Config
 import base64
 import json
-from src.app.config import Config
 
 config = Config()
 
-key = config.get_encryption_key().encode('utf-8')
-IV = config.get_iv().encode('utf-8')
+# Get encryption key and IV from environment variables
+ENCRYPTION_KEY = config.get_encryption_key()
+IV = config.get_iv()
 
-def encrypt(data: str):
-    padder = padding.PKCS7(128).padder()
-    cipher = Cipher(algorithms.AES(key), modes.CBC(IV))
-    encryptor = cipher.encryptor()
+def decrypt(ciphertext: str) -> dict:
+    try:
+        # Decode the base64-encoded ciphertext
+        encrypted_data = base64.b64decode(ciphertext)
+        cipher = AES.new(ENCRYPTION_KEY, AES.MODE_CBC, IV)
+        
+        # Decrypt and unpad the data
+        decrypted = unpad(cipher.decrypt(encrypted_data), AES.block_size)
+        return json.loads(decrypted.decode('utf-8'))
+    except (ValueError, KeyError):
+        raise HTTPException(status_code=400, detail="Invalid encryption or decryption key")
+
+def encrypt(data: dict) -> str:
+    # Convert the data to JSON
+    data_json = json.dumps(data)
+    cipher = AES.new(ENCRYPTION_KEY, AES.MODE_CBC, IV)
     
-    # Convert data to bytes and pad
-    data_bytes = data.encode('utf-8')
-    padded_data = padder.update(data_bytes) + padder.finalize()
+    # Pad the data to be AES block size compliant
+    padded_data = pad(data_json.encode('utf-8'), AES.block_size)
     
-    # Encrypt
-    encrypted_data = encryptor.update(padded_data) + encryptor.finalize()
-    
-    # Encode to base64 for easy transmission
+    # Encrypt and encode the data in base64
+    encrypted_data = cipher.encrypt(padded_data)
     return base64.b64encode(encrypted_data).decode('utf-8')
-
-def decrypt(encrypted_data: str):
-    unpadder = padding.PKCS7(128).unpadder()
-    cipher = Cipher(algorithms.AES(key), modes.CBC(IV))
-    decryptor = cipher.decryptor()
-    
-    # Decode from base64 and decrypt
-    encrypted_bytes = base64.b64decode(encrypted_data)
-    decrypted_padded = decryptor.update(encrypted_bytes) + decryptor.finalize()
-    
-    # Unpad and convert back to string
-    decrypted_data = unpadder.update(decrypted_padded) + unpadder.finalize()
-    return decrypted_data.decode('utf-8')
