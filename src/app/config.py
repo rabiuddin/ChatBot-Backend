@@ -10,6 +10,8 @@ class Config:
     model_temperature: float
     available_models: str
     assemblyai_api_key: str
+    encryption_key: str
+    IV: str
 
     def __init__(self):
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -18,6 +20,8 @@ class Config:
         self.model_temperature = os.getenv("MODEL_TEMPERATURE")
         self.available_models = os.getenv("AVAILABLE_MODELS")
         self.assemblyai_api_key = os.getenv("ASSEMBLY_AI_API_KEY")
+        self.encryption_key = os.getenv("ENCRYPTION_KEY")
+        self.IV = os.getenv("IV")
 
     def get_gemini_api_key(self):
         return self.gemini_api_key
@@ -36,3 +40,9 @@ class Config:
     
     def get_assemblyai_api_key(self):
         return self.assemblyai_api_key
+    
+    def get_encryption_key(self):
+        return self.encryption_key
+    
+    def get_iv(self):
+        return self.IV

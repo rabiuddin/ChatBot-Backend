@@ -4,6 +4,7 @@ from src.app.helper.speech_assistant_helper.speech_assistant import process_audi
 from pathlib import Path
 import shutil
 from datetime import datetime
+from src.app.utils.encryption import encrypt
 
 speech_router = APIRouter()
 
@@ -19,4 +20,4 @@ async def getResponse(audio_file: UploadFile = File(...)):
         
     request = SpeechPrompt(audio_file=str(file_path))
     response = await process_audio(request)
-    return {"data": response}
+    return {"data": encrypt(response)}
