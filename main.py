@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
-from src.app.api.chatCompletion.main import router
-from src.app.api.assistant import main
-from src.app.api.speechAssistant.main import speech_router
+from src.app.api.chat_completion import chat_completion
+from src.app.api.assistant import assistant
+from src.app.api.speech_assistant import speech_assistant
 
 load_dotenv()
 
@@ -20,6 +20,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-app.include_router(router, prefix="/api/chat-completion", tags=["chat-completion"])
-app.include_router(main.router, prefix="/api/mergestack-assistant", tags=["assistant"])
-app.include_router(speech_router, prefix="/api/speech-assistant", tags=["speech-assistant"])
+app.include_router(chat_completion.router, prefix="/api/chat-completion", tags=["chat-completion"])
+app.include_router(assistant.router, prefix="/api/mergestack-assistant", tags=["assistant"])
+app.include_router(speech_assistant.speech_router, prefix="/api/speech-assistant", tags=["speech-assistant"])
