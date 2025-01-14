@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import HTTPException
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad, pad
 from src.app.config import Config
