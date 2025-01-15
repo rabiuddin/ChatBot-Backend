@@ -8,7 +8,7 @@ from src.app.utils.limiter_utils import limiter
 router = APIRouter()
 
 @router.post("/")
-@limiter.limit("10/minute")
+@limiter.limit("100/minute")
 def getResponse(request: Request, request_body: AssistantPrompt):
     response_builder = ResponseBuilder()
     mergestack = MergeStackService()

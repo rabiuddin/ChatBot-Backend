@@ -13,7 +13,7 @@ UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 @speech_router.post("/")
-@limiter.limit("10/minute")
+@limiter.limit("100/minute")
 async def getResponse(request: Request, audio_file: UploadFile = File(...)):
     response_builder = ResponseBuilder()
     try:

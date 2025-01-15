@@ -12,7 +12,7 @@ config = Config()
 router = APIRouter()
 
 @router.post("/")
-@limiter.limit("10/minute")
+@limiter.limit("100/minute")
 def getResponse(request: Request, request_body: PromptRequest):
     response_builder = ResponseBuilder()
     available_models = config.get_available_models()
