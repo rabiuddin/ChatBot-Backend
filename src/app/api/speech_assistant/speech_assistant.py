@@ -1,11 +1,11 @@
-from fastapi import APIRouter, UploadFile, File, status
+from fastapi import APIRouter, UploadFile, File, status, Request
 from src.app.models.speech_prompt import SpeechPrompt
 from src.app.helper.speech_assistant.speech_assistant import process_audio
 from pathlib import Path
 import shutil
 from datetime import datetime
-from src.app.utils.encryption_utils import encrypt
 from src.app.utils.response_builder_utils import ResponseBuilder
+from src.app.utils.limiter_utils import limiter
 
 speech_router = APIRouter()
 
@@ -13,7 +13,8 @@ UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 @speech_router.post("/")
-async def getResponse(audio_file: UploadFile = File(...)):
+@limiter.limit("10/minute")
+async def getResponse(request: Request, audio_file: UploadFile = File(...)):
     response_builder = ResponseBuilder()
     try:
         # To give each file a unique name, we use the current timestamp
