@@ -15,11 +15,12 @@ app = FastAPI()
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
 
+cors_urls = os.getenv("CORS_URLS", "").split(",")
 
 # Allow CORS for frontend requests (adjust this to your frontend URL)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.getenv("CORS_URLS")],  
+    allow_origins=cors_urls, 
     allow_methods=["*"],  
     allow_headers=["*"],  # Allows all headers
 )
