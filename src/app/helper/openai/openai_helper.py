@@ -11,11 +11,11 @@ def openai_chat_completion(request: PromptRequest):
         response = openai.chat.completions.create(
             model=request.model, 
             messages=[
-                {"role": "system", "content": "You are a helpful assistant." if request.model == "gpt-4" else "You are a helpful assistant who helps user figure out if the comment is sarcastic or not."},
+                {"role": "system", "content": "You are a helpful assistant." if request.model == "gpt-4" else ""},
                 {"role": "user", "content": request.prompt}
             ],
             max_tokens=int(config.get_max_tokens()),
-            temperature=float(config.get_model_temperature())
+            temperature=float(config.get_model_temperature()) if request.model == "gpt-4" else 0
         )
         assistant_message = response.choices[0].message.content
 
