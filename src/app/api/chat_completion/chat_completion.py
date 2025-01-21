@@ -12,7 +12,7 @@ config = Config()
 router = APIRouter()
 
 @router.post("/")
-@limiter.limit("100/minute")
+@limiter.limit("30/minute")
 def getResponse(request: Request, request_body: PromptRequest):
     response_builder = ResponseBuilder()
     try:

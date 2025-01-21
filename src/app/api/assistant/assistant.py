@@ -8,7 +8,7 @@ from src.app.utils.limiter_utils import limiter
 router = APIRouter()
 
 @router.post("/")
-@limiter.limit("100/minute")
+@limiter.limit("30/minute")
 def getResponse(request: Request, request_body: AssistantPrompt):
     response_builder = ResponseBuilder()
     mergestack = MergeStackService()
@@ -17,10 +17,10 @@ def getResponse(request: Request, request_body: AssistantPrompt):
         request_body.prompt = decrypt(request_body.prompt)
         
         if request_body.prompt == "":
-            return response_builder.set_success(False).set_data("Please provide a prompt.").setStatusCode(status.HTTP_400_BAD_REQUEST).build()
+            return response_builder.set_success(False).set_data("").setStatusCode(status.HTTP_400_BAD_REQUEST).set_error("Please provide a prompt.").build()
             
         response = (mergestack.merge_stack_assistant(request_body)).content[0].text.value
         
         return response_builder.set_success(True).set_data(response).setStatusCode(status.HTTP_200_OK).build()
     except Exception as e:
-        return response_builder.set_success(False).set_data(f"Sorry Our AI services are currently down, try again later.\nExeption: {e}").setStatusCode(status.HTTP_500_INTERNAL_SERVER_ERROR).build()
+        return response_builder.set_success(False).set_data("").set_error(f"Sorry Our AI services are currently down, try again later.\nExeption: {e}").setStatusCode(status.HTTP_500_INTERNAL_SERVER_ERROR).build()
