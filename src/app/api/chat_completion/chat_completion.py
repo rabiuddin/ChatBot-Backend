@@ -5,7 +5,7 @@ from src.app.config import Config
 from src.app.utils.encryption_utils import decrypt
 from src.app.utils.response_builder_utils import ResponseBuilder
 from src.app.utils.limiter_utils import limiter
-from src.app.helper.langchain.langchain_chat_completion import LangchainService
+from src.app.helper.langchain.chat_completion import LangchainService
 
 config = Config()
 

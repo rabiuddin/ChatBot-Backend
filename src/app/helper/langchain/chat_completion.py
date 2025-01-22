@@ -7,6 +7,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
+config = Config()
+
 class LangchainService:
     _instance = None
 
@@ -19,7 +21,6 @@ class LangchainService:
         if not hasattr(self, 'initialized'): 
             self.initialized = True
             try:
-                self.config = Config()
                 self.model = None
                 self.workflow = StateGraph(state_schema=MessagesState)
 
@@ -60,23 +61,23 @@ class LangchainService:
 
     def __set_model(self, model: str):
         try:
-            if model in self.config.get_gemini_allowed_models():
+            if model in config.get_gemini_allowed_models():
                 self.model = ChatGoogleGenerativeAI(
                     model=model,
-                    api_key=self.config.get_gemini_api_key(),
-                    max_tokens=self.config.get_max_tokens(),
-                    temperature=self.config.get_model_temperature(),
+                    api_key=config.get_gemini_api_key(),
+                    max_tokens=config.get_max_tokens(),
+                    temperature=config.get_model_temperature(),
                 )
-            elif model in self.config.get_openai_allowed_models():
+            elif model in config.get_openai_allowed_models():
                 self.model = ChatOpenAI(
                     model=model,
-                    api_key=self.config.get_openai_api_key(),
-                    max_tokens=self.config.get_max_tokens(),
-                    temperature=self.config.get_model_temperature(),
+                    api_key=config.get_openai_api_key(),
+                    max_tokens=config.get_max_tokens(),
+                    temperature=config.get_model_temperature(),
                 )
             else:
                 raise ValueError(
-                    f"Model '{model}' is not allowed. Allowed models: {self.config.get_gemini_allowed_models() + self.config.get_openai_allowed_models()}"
+                    f"Model '{model}' is not allowed. Allowed models: {config.get_gemini_allowed_models() + config.get_openai_allowed_models()}"
                 )
         except Exception as e:
             raise RuntimeError(f"Error setting model: {e}")
