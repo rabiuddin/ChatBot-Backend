@@ -23,6 +23,7 @@ class Config:
         self.IV = bytes.fromhex(os.getenv("IV"))
         self.openai_allowed_models = ["gpt-4", "ft:gpt-4o-mini-2024-07-18:mergestack:sarcasm-detector:ArmuGrrw"]
         self.gemini_allowed_models = ["gemini-1.5-flash", "tunedModels/sarcastic-ai-sn3f6oecag98"]
+        self.hugging_face_api_key = os.getenv("HUGGING_FACE_API_KEY")
 
     def get_gemini_api_key(self):
         return self.gemini_api_key
@@ -50,3 +51,6 @@ class Config:
     
     def get_gemini_allowed_models(self):
         return self.gemini_allowed_models
+    
+    def get_hugging_face_api_key(self):
+        return self.hugging_face_api_key
