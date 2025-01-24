@@ -1,15 +1,24 @@
 from fastapi import HTTPException
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad, pad
-from src.app.config import Config
+from src.app.config.config import Config
 import base64
 import json
+
+import json
+from datetime import datetime
+
 
 config = Config()
 
 # Get encryption key and IV from environment variables
 ENCRYPTION_KEY = config.get_encryption_key()
 IV = config.get_iv()
+
+def default_serializer(obj):
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {obj} not serializable")
 
 def decrypt(ciphertext: str) -> dict:
     try:
@@ -25,7 +34,7 @@ def decrypt(ciphertext: str) -> dict:
 
 def encrypt(data: dict) -> str:
     # Convert the data to JSON
-    data_json = json.dumps(data)
+    data_json = json.dumps(data, default=default_serializer)
     cipher = AES.new(ENCRYPTION_KEY, AES.MODE_CBC, IV)
     
     # Pad the data to be AES block size compliant

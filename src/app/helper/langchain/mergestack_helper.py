@@ -1,4 +1,4 @@
-from src.app.config import Config
+from src.app.config.config import Config
 from src.app.models.prompt_model import PromptRequest
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.messages import HumanMessage, trim_messages

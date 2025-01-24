@@ -16,6 +16,9 @@ class ResponseBuilder:
         data = encrypt(data)
         self.response["data"] = data
         return self
+    def set_msg_chat_data(self, data):
+        self.response["data"] = data
+        return self
     def set_error(self, error):
         self.response["error"] = error
         return self

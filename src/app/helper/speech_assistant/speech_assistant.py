@@ -1,5 +1,5 @@
 import assemblyai as aai
-from src.app.config import Config
+from src.app.config.config import Config
 from src.app.models.speech_prompt import SpeechPrompt
 import os
 

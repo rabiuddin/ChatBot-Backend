@@ -1,4 +1,4 @@
-from src.app.config import Config
+from src.app.config.config import Config
 from src.app.models.prompt_model import PromptRequest
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -14,10 +14,11 @@ class LangchainService:
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(LangchainService, cls).__new__(cls, *args, **kwargs)
+            cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self):
+    def __init__(self, threadID):
+        self.langchain_config = {"configurable": {"thread_id": f"{threadID}"}}
         if not hasattr(self, 'initialized'): 
             self.initialized = True
             try:
@@ -26,7 +27,6 @@ class LangchainService:
 
                 self.workflow.add_edge(START, "model")
                 self.workflow.add_node("model", self.call_model)
-                self.langchain_config = {"configurable": {"thread_id": "abc123"}}
 
                 self.app = self.workflow.compile(checkpointer=MemorySaver())
 

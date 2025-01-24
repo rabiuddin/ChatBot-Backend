@@ -1,5 +1,5 @@
 import google.generativeai as genai
-from src.app.config import Config
+from src.app.config.config import Config
 from src.app.models.prompt_model import PromptRequest
 
 config = Config()

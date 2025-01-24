@@ -12,6 +12,11 @@ class Config:
     assemblyai_api_key: str
     encryption_key: str
     IV: str
+    mysql_host: str
+    mysql_user: str
+    mysql_password: str
+    mysql_db: str
+    mysql_port: int
 
     def __init__(self):
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -24,6 +29,11 @@ class Config:
         self.openai_allowed_models = ["gpt-4", "ft:gpt-4o-mini-2024-07-18:mergestack:sarcasm-detector:ArmuGrrw"]
         self.gemini_allowed_models = ["gemini-1.5-flash", "tunedModels/sarcastic-ai-sn3f6oecag98"]
         self.hugging_face_api_key = os.getenv("HUGGING_FACE_API_KEY")
+        self.mysql_host = os.getenv("MYSQL_HOST")
+        self.mysql_user = os.getenv("MYSQL_USER")
+        self.mysql_password = os.getenv("MYSQL_PASSWORD")
+        self.mysql_db = os.getenv("MYSQL_DATABASE")
+        self.mysql_port = os.getenv("MYSQL_PORT")
 
     def get_gemini_api_key(self):
         return self.gemini_api_key
@@ -54,3 +64,20 @@ class Config:
     
     def get_hugging_face_api_key(self):
         return self.hugging_face_api_key
+    
+    def get_mysql_host(self):
+        return self.mysql_host
+    
+    def get_mysql_user(self):
+        return self.mysql_user
+    
+    def get_mysql_password(self):
+        return self.mysql_password
+    
+    def get_mysql_db(self):
+        return self.mysql_db
+    
+    def get_mysql_port(self):
+        return self.mysql_port
+    
+    

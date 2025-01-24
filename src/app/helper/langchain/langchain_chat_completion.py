@@ -1,4 +1,4 @@
-from src.app.config import Config
+from src.app.config.config import Config
 from src.app.models.prompt_model import PromptRequest
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI

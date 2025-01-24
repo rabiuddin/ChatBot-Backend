@@ -1,7 +1,7 @@
 import time
 import logging
 from openai import OpenAI
-from src.app.config import Config
+from src.app.config.config import Config
 from src.app.models.assistant_prompt_model import AssistantPrompt
 import os
 
