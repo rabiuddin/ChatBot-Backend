@@ -33,8 +33,6 @@ def add_message(message: MessageRequest):
         response = ResponseBuilder().set_success(False).set_data("Please provide a AIMessage.").build()
         return response
     
-    print(f"ChatID: {message.ChatID}, HumanMessage: {message.HumanMessage}, AIMessage: {message.AIMessage}")
-    
     try:
         cursor.execute("INSERT INTO Messages (ChatID, HumanMessage, AIMessage) VALUES (%s, %s, %s)", (message.ChatID, message.HumanMessage, message.AIMessage))
         connection.commit()

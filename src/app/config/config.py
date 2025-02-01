@@ -5,7 +5,6 @@ load_dotenv()
 
 class Config:
     gemini_api_key: str
-    openai_api_key: str
     max_tokens: int
     model_temperature: float
     available_models: str
@@ -20,15 +19,12 @@ class Config:
 
     def __init__(self):
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
-        self.openai_api_key = os.getenv("OPENAI_SECRET_KEY")
         self.max_tokens = os.getenv("MAX_OUTPUT_TOKENS")
         self.model_temperature = os.getenv("MODEL_TEMPERATURE")
         self.assemblyai_api_key = os.getenv("ASSEMBLY_AI_API_KEY")
         self.encryption_key = bytes.fromhex(os.getenv("ENCRYPTION_KEY"))
         self.IV = bytes.fromhex(os.getenv("IV"))
-        self.openai_allowed_models = ["gpt-4", "ft:gpt-4o-mini-2024-07-18:mergestack:sarcasm-detector:ArmuGrrw"]
         self.gemini_allowed_models = ["gemini-1.5-flash", "tunedModels/sarcastic-ai-sn3f6oecag98"]
-        self.hugging_face_api_key = os.getenv("HUGGING_FACE_API_KEY")
         self.mysql_host = os.getenv("MYSQL_HOST")
         self.mysql_user = os.getenv("MYSQL_USER")
         self.mysql_password = os.getenv("MYSQL_PASSWORD")
@@ -37,9 +33,6 @@ class Config:
 
     def get_gemini_api_key(self):
         return self.gemini_api_key
-    
-    def get_openai_api_key(self):
-        return self.openai_api_key
     
     def get_max_tokens(self):
         return self.max_tokens
@@ -56,14 +49,8 @@ class Config:
     def get_iv(self):
         return self.IV
     
-    def get_openai_allowed_models(self):
-        return self.openai_allowed_models
-    
     def get_gemini_allowed_models(self):
         return self.gemini_allowed_models
-    
-    def get_hugging_face_api_key(self):
-        return self.hugging_face_api_key
     
     def get_mysql_host(self):
         return self.mysql_host

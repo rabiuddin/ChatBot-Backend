@@ -68,16 +68,9 @@ class LangchainService:
                     max_tokens=config.get_max_tokens(),
                     temperature=config.get_model_temperature(),
                 )
-            elif model in config.get_openai_allowed_models():
-                self.model = ChatOpenAI(
-                    model=model,
-                    api_key=config.get_openai_api_key(),
-                    max_tokens=config.get_max_tokens(),
-                    temperature=config.get_model_temperature(),
-                )
             else:
                 raise ValueError(
-                    f"Model '{model}' is not allowed. Allowed models: {config.get_gemini_allowed_models() + config.get_openai_allowed_models()}"
+                    f"Model '{model}' is not allowed. Allowed models: {config.get_gemini_allowed_models()}"
                 )
         except Exception as e:
             raise RuntimeError(f"Error setting model: {e}")

@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 from src.app.api.chat_completion import chat_completion
-from src.app.api.assistant import assistant
 from src.app.api.speech_assistant import speech_assistant
 from src.app.api.chats import chats
 from src.app.api.chats import messages
@@ -29,7 +28,6 @@ app.add_middleware(
 
 
 app.include_router(chat_completion.router, prefix="/api/chat-completion", tags=["chat-completion"])
-app.include_router(assistant.router, prefix="/api/mergestack-assistant", tags=["assistant"])
 app.include_router(speech_assistant.speech_router, prefix="/api/speech-assistant", tags=["speech-assistant"])
 app.include_router(chats.router, prefix="/api/chats", tags=["chats"])
 app.include_router(messages.router, prefix="/api/messages", tags=["messages"])
